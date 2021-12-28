@@ -5,6 +5,9 @@ module.exports = {
       maxHeight: {
         128: "32rem",
       },
+      gridTemplateColumns: {
+        "responsive-grid": "repeat(auto-fit, minmax(230px, 1fr))",
+      },
     },
   },
   plugins: [],
