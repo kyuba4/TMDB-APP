@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useFetchMovies from "../hooks/useFetchMovies";
 import FeaturedMovie from "../components/FeaturedMovie";
 import Searchbar from "../components/Searchbar";
+import OtherMovies from "../components/OtherMovies";
 
 const Home = () => {
   const { data, pending } = useFetchMovies();
@@ -16,8 +17,13 @@ const Home = () => {
   return (
     <>
       {pending && <div>Loading...</div>}
-      {movies && <FeaturedMovie props={movies.results[0]} />}
-      {movies && <Searchbar />}
+      {movies && (
+        <>
+          <FeaturedMovie data={movies.results[0]} />
+          <Searchbar />
+          <OtherMovies data={movies} />
+        </>
+      )}
     </>
   );
 };

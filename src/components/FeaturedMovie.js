@@ -1,4 +1,4 @@
-const FeaturedMovie = ({ props: data }) => {
+const FeaturedMovie = ({ data }) => {
   const BACKDROP_IMG = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
 
   return (
