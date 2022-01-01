@@ -10,13 +10,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Home = () => {
   const [page, setPage] = useState(1);
   const { data, pending, error } = useFetchMovies(page);
-  // eslint-disable-next-line no-unused-vars
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (data) {
-      // data.results.forEach((result) => movies.push(result));
-      data.results.forEach((result) => movies.push(result));
+      const newArr = [...movies, ...data.results];
+      setMovies(newArr);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -26,8 +25,10 @@ const Home = () => {
       {!movies.length > 0 && (
         <>
           <Skeleton height={512} />
-          <div className="text-center">
-            <Skeleton count={6} height={350} width={250} inline={true} className="mx-2 my-4" />
+          <div className="flex flex-wrap">
+            <div className="mx-auto">
+              <Skeleton count={7} height={350} width={250} inline={true} className="mx-2 my-4" />
+            </div>
           </div>
         </>
       )}
@@ -39,7 +40,11 @@ const Home = () => {
           <OtherMovies data={movies} />
         </>
       )}
-      {pending ? <div className="text-center">Loading...</div> : <LoadMoreButton loadMore={() => setPage(page + 1)} />}
+      <LoadMoreButton
+        text={pending || !movies ? "Loading..." : "Load More"}
+        handleLoadMore={() => setPage(page + 1)}
+        disabled={!movies || pending}
+      />
     </>
   );
 };
