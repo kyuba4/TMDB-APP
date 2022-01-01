@@ -11,11 +11,13 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const { data, pending, error } = useFetchMovies(page);
   const [movies, setMovies] = useState([]);
+  const [maxFetchedPage, setMaxFetchedPage] = useState(0);
 
   useEffect(() => {
-    if (data) {
+    if (data && page !== maxFetchedPage) {
       const newArr = [...movies, ...data.results];
       setMovies(newArr);
+      setMaxFetchedPage(maxFetchedPage + 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
