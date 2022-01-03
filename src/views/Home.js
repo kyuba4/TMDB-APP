@@ -8,17 +8,16 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const Home = () => {
-  const [page, setPage] = useState(1);
-  const { data, pending, error } = useFetchMovies(page);
+  const [page, setPage] = useState({ currentPage: 1, maxFetchedPage: 0 });
+  const { data, pending, error } = useFetchMovies(page.currentPage);
   const [movies, setMovies] = useState([]);
-  const [maxFetchedPage, setMaxFetchedPage] = useState(0);
 
   useEffect(() => {
-    if (data && page !== maxFetchedPage) {
-      const newArr = [...movies, ...data.results];
-      setMovies(newArr);
-      setMaxFetchedPage(maxFetchedPage + 1);
-    }
+    if (!data || page.currentPage === page.maxFetchedPage) return;
+
+    const newArr = [...movies, ...data.results];
+    setMovies(newArr);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -44,7 +43,7 @@ const Home = () => {
       )}
       <LoadMoreButton
         text={pending || !movies ? "Loading..." : "Load More"}
-        handleLoadMore={() => setPage(page + 1)}
+        handleLoadMore={() => setPage({ currentPage: page.currentPage + 1, maxFetchedPage: page.maxFetchedPage + 1 })}
         disabled={!movies || pending}
       />
     </>
