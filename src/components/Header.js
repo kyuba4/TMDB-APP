@@ -1,9 +1,12 @@
 import Logo from "../assets/tmdb-logo.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="w-full bg-gradient-to-b from-slate-600 to-slate-500 flex p-5 justify-between items-center">
-      <img src={Logo} alt="tmdb" className="lg:max-h-8 max-h-4" />
+      <Link to="/">
+        <img src={Logo} alt="tmdb" className="max-h-8 w-full" />
+      </Link>
     </div>
   );
 };

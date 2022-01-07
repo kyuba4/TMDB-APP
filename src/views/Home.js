@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import useFetchMovies from "../hooks/useFetchMovies";
-import useSearchMovies from "../hooks/useSearchMovies";
+import useHomeFetch from "../hooks/useHomeFetch";
 import FeaturedMovie from "../components/FeaturedMovie";
 import Searchbar from "../components/Searchbar";
-import OtherMovies from "../components/OtherMovies";
+import MoviesList from "../components/MoviesList";
 import LoadMoreButton from "../components/LoadMoreButton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const Home = () => {
   const [page, setPage] = useState({ currentPage: 1, maxFetchedPage: 0, totalPages: null });
-  const { data, pending, error } = useFetchMovies(page.currentPage);
-  const { title } = useSearchMovies("movie");
+  const { data, pending, error } = useHomeFetch(page.currentPage);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -36,12 +34,12 @@ const Home = () => {
           </div>
         </>
       )}
-      {error && <div className="text-red-700">{error}</div>}
+      {error && <div className="text-red-500">{error}</div>}
       {movies.length > 0 && (
         <>
           <FeaturedMovie data={movies[0]} />
           <Searchbar />
-          <OtherMovies data={movies.slice(1)} />
+          <MoviesList data={movies.slice(1)} />
         </>
       )}
       <LoadMoreButton
