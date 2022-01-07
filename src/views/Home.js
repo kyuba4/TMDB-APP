@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useHomeFetch from "../hooks/useHomeFetch";
 import FeaturedMovie from "../components/FeaturedMovie";
 import Searchbar from "../components/Searchbar";
@@ -11,12 +10,12 @@ const Home = () => {
 
   return (
     <>
-      {state.results.length > 0 && <MoviesListSkeleton />}
+      {!state.results.length && <MoviesListSkeleton />}
       {error && <div className="text-red-500">{error}</div>}
-      {state.results.length > 0 && (
+      {state.results.length && (
         <>
           <FeaturedMovie data={state.results[0]} />
-          <Searchbar setSearchTerm={setSearchTerm} />
+          <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <MoviesList data={state.results.slice(1)} />
         </>
       )}

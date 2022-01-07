@@ -38,9 +38,11 @@ const useFetchMovies = () => {
 
   // search and initial
   useEffect(() => {
-    setState(initialState);
-    fetchMovies(1, searchTerm);
-
+    const timeoutID = setTimeout(() => {
+      setState(initialState);
+      fetchMovies(1, searchTerm);
+    }, 800);
+    return () => clearTimeout(timeoutID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
