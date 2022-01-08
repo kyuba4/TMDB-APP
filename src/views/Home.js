@@ -18,6 +18,8 @@ const Home = () => {
 
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
+      {!searchTerm && loading && <MoviesListSkeleton />}
+
       {state.results.length && (
         <MoviesList
           header={searchTerm ? "Searched Movies" : "Other Featured Movies"}
