@@ -11,14 +11,20 @@ const Home = () => {
   return (
     <>
       {!state.results.length && <MoviesListSkeleton />}
+
       {error && <div className="text-red-500">{error}</div>}
+
+      {state.results.length && !searchTerm && !loading && <FeaturedMovie data={state.results[0]} />}
+
+      <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
       {state.results.length && (
-        <>
-          <FeaturedMovie data={state.results[0]} />
-          <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <MoviesList data={state.results.slice(1)} />
-        </>
+        <MoviesList
+          header={searchTerm ? "Searched Movies" : "Other Featured Movies"}
+          data={searchTerm || loading ? state.results : state.results.slice(1)}
+        />
       )}
+
       <LoadMoreButton
         text={loading || !state.results.length ? "Loading..." : "Load More"}
         handleLoadMore={() => setIsLoadingMore(true)}

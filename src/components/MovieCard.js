@@ -1,10 +1,11 @@
 import { useState } from "react";
-import NO_IMG from "../assets/no_image.jpg";
 
 const MovieCard = ({ data }) => {
   const { poster_path: poster, original_title, title } = data;
 
-  const POSTER_IMG = poster ? `https://image.tmdb.org/t/p/original${poster}` : NO_IMG;
+  const POSTER_IMG = poster
+    ? `https://image.tmdb.org/t/p/original${poster}`
+    : `https://plchldr.co/i/500x500?bg=000000&fc=3cff00&text=${original_title || title}`;
 
   const [imgLoad, setImgLoad] = useState(false);
 
@@ -16,7 +17,7 @@ const MovieCard = ({ data }) => {
       title={title || original_title}
     >
       <img
-        className="rounded-md w-full h-full shadow-md shadow-gray-500"
+        className="rounded-md object-cover w-full h-full shadow-md shadow-gray-500"
         src={POSTER_IMG}
         alt="Poster"
         onLoad={() => setImgLoad(true)}

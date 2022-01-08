@@ -26,22 +26,32 @@ const useFetchMovies = () => {
       const response = await fetch(API_CALL);
       const movies = await response.json();
 
+      // Check if there are any movies if not reload page
+      if (movies.total_pages === 0) {
+        window.location.reload();
+      }
+
       setState((prev) => ({
         ...movies,
         results: page > 1 ? [...prev.results, ...movies.results] : [...movies.results],
       }));
     } catch (err) {
       setError(true);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // search and initial
   useEffect(() => {
-    const timeoutID = setTimeout(() => {
-      setState(initialState);
-      fetchMovies(1, searchTerm);
-    }, 800);
+    setLoading(true);
+    const timeoutID = setTimeout(
+      () => {
+        setState(initialState);
+        fetchMovies(1, searchTerm);
+      },
+      state.results.length ? 800 : 0
+    );
     return () => clearTimeout(timeoutID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);

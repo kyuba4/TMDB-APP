@@ -1,5 +1,7 @@
 const FeaturedMovie = ({ data }) => {
-  const BACKDROP_IMG = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
+  const BACKDROP_IMG = data.backdrop_path
+    ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
+    : `https://plchldr.co/i/600x500?bg=000000&fc=3cff00&text=${data.original_title || data.title}`;
 
   return (
     <div className="flex max-h-128 w-full relative">
