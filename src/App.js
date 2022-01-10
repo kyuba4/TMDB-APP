@@ -15,6 +15,8 @@ function App() {
           <Route element={<Home />}></Route>
         </Routes>
       </Router>
+      {/* Filler div when viewport height < 100 */}
+      <div className="flex-1"></div>
       <Footer />
     </>
   );

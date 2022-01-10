@@ -10,14 +10,19 @@ const Home = () => {
 
   return (
     <>
-      {(!state.results.length || loading) && <MoviesListSkeleton />}
+      {/* LOADING SKELETON */}
+      {!state.results.length && loading && <MoviesListSkeleton />}
 
+      {/* ERROR MESSAGE */}
       {error && <div className="text-red-500">{error}</div>}
 
+      {/* BIG FEATURED MOVIE IMAGE */}
       {state.results.length && showBigImage && !loading && <FeaturedMovie data={state.results[0]} />}
 
+      {/* SEARCHBAR */}
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
+      {/* LIST OF MOVIES */}
       {(state.results.length || !loading) && (
         <MoviesList
           header={showBigImage ? "Other Featured Movies" : "Searched Movies"}
@@ -25,6 +30,7 @@ const Home = () => {
         />
       )}
 
+      {/* BUTTON FOR LOADING MORE MOVIES */}
       <LoadMoreButton
         text={loading || !state.results.length ? "Loading..." : "Load More"}
         handleLoadMore={() => setIsLoadingMore(true)}
