@@ -13,6 +13,7 @@ const useFetchMovies = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [showBigImage, setShowBigImage] = useState(true);
 
   const fetchMovies = async (page, searchTerm) => {
     const API_CALL = searchTerm
@@ -31,10 +32,18 @@ const useFetchMovies = () => {
         window.location.reload();
       }
 
+      // Add fetched images to state
       setState((prev) => ({
         ...movies,
         results: page > 1 ? [...prev.results, ...movies.results] : [...movies.results],
       }));
+
+      // Show featured big image only when user didn't type anything in search field
+      if (searchTerm) {
+        setShowBigImage(false);
+      } else {
+        setShowBigImage(true);
+      }
     } catch (err) {
       setError(true);
     } finally {
@@ -44,7 +53,6 @@ const useFetchMovies = () => {
 
   // search and initial
   useEffect(() => {
-    setLoading(true);
     const timeoutID = setTimeout(
       () => {
         setState(initialState);
@@ -65,7 +73,7 @@ const useFetchMovies = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingMore, searchTerm, state.page]);
 
-  return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };
+  return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage };
 };
 
 export default useFetchMovies;

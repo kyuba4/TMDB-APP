@@ -6,24 +6,22 @@ import LoadMoreButton from "../components/LoadMoreButton";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
 
 const Home = () => {
-  const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore } = useHomeFetch();
+  const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage } = useHomeFetch();
 
   return (
     <>
-      {!state.results.length && <MoviesListSkeleton />}
+      {(!state.results.length || loading) && <MoviesListSkeleton />}
 
       {error && <div className="text-red-500">{error}</div>}
 
-      {state.results.length && !searchTerm && !loading && <FeaturedMovie data={state.results[0]} />}
+      {state.results.length && showBigImage && !loading && <FeaturedMovie data={state.results[0]} />}
 
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {!searchTerm && loading && <MoviesListSkeleton />}
-
-      {state.results.length && (
+      {(state.results.length || !loading) && (
         <MoviesList
-          header={searchTerm ? "Searched Movies" : "Other Featured Movies"}
-          data={searchTerm || loading ? state.results : state.results.slice(1)}
+          header={showBigImage ? "Other Featured Movies" : "Searched Movies"}
+          data={!showBigImage ? state.results : state.results.slice(1)}
         />
       )}
 
