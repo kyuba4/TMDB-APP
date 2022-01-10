@@ -21,7 +21,7 @@ const Home = () => {
       {(state.results.length || !loading) && (
         <MoviesList
           header={showBigImage ? "Other Featured Movies" : "Searched Movies"}
-          data={!showBigImage ? state.results : state.results.slice(1)}
+          data={showBigImage ? state.results.slice(1) : state.results}
         />
       )}
 
