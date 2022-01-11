@@ -10,9 +10,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-          <Route path="/movie/:movieID" element={<Movie />}></Route>
-          <Route element={<Home />}></Route>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/movie/:movieID" element={<Movie />} />
         </Routes>
       </Router>
       {/* Filler div when viewport height < 100 */}
