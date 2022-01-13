@@ -14,11 +14,11 @@ const MovieCard = ({ data }) => {
     <div
       className={`${
         imgLoad ? "entry-anim" : "opacity-0"
-      } flex mx-2 flex-col items-center h-full max-w-xs duration-300 ease-in-out cursor-pointer hover:opacity-90`}
+      } flex flex-col items-center group h-full max-w-xs duration-300 cubic-bezier(0.22, 1, 0.36, 1) cursor-pointer rounded-md overflow-hidden hover:opacity-90`}
       title={title || original_title}
     >
       <img
-        className="rounded-md object-cover w-full h-full shadow-md shadow-gray-500"
+        className="object-cover w-full h-full shadow-md shadow-gray-500 duration-300 cubic-bezier(0.22, 1, 0.36, 1) group-hover:scale-105"
         src={POSTER_IMG}
         alt="Poster"
         onLoad={() => setImgLoad(true)}
