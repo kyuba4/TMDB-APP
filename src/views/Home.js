@@ -4,6 +4,7 @@ import Searchbar from "../components/Searchbar";
 import MoviesList from "../components/MoviesList";
 import LoadMoreButton from "../components/LoadMoreButton";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Home = () => {
   const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults } = useHomeFetch();
@@ -41,6 +42,9 @@ const Home = () => {
           disabled={loading}
         />
       )}
+
+      {/* SCROLL TO TOP BUTTON */}
+      <ScrollToTop />
     </>
   );
 };
