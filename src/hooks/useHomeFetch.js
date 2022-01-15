@@ -19,8 +19,8 @@ const useFetchMovies = () => {
 
   const fetchMovies = async (page, searchTerm) => {
     const API_CALL = searchTerm
-      ? `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${page}`
-      : `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`;
+      ? `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${page}&language=en-US`
+      : `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}&language=en-US`;
 
     try {
       setError(false);
@@ -56,8 +56,17 @@ const useFetchMovies = () => {
 
   // search and initial
   useEffect(() => {
+    const sessionPersistence = JSON.parse(sessionStorage.getItem("home"));
+
     const timeoutID = setTimeout(
       () => {
+        if (!searchTerm) {
+          if (sessionPersistence) {
+            setState(sessionPersistence);
+            return;
+          }
+        }
+
         setState(initialState);
         fetchMovies(1, searchTerm);
       },
@@ -75,6 +84,10 @@ const useFetchMovies = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingMore, searchTerm, state.page]);
+
+  useEffect(() => {
+    if (!searchTerm) sessionStorage.setItem("home", JSON.stringify(state));
+  }, [state, searchTerm]);
 
   return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults };
 };
