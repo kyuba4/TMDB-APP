@@ -2,9 +2,8 @@ import useHomeFetch from "../hooks/useHomeFetch";
 import FeaturedMovie from "../components/FeaturedMovie";
 import Searchbar from "../components/Searchbar";
 import MoviesList from "../components/MoviesList";
-import LoadMoreButton from "../components/LoadMoreButton";
+import Button from "../components/Button";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
-import ScrollToTop from "../components/ScrollToTop";
 
 const Home = () => {
   const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults } = useHomeFetch();
@@ -36,10 +35,11 @@ const Home = () => {
 
       {/* BUTTON FOR LOADING MORE MOVIES */}
       {!emptyResults && state.total_pages > state.page && (
-        <LoadMoreButton
+        <Button
           text={loading ? "Loading..." : "Load More"}
-          handleLoadMore={() => setIsLoadingMore(true)}
+          onClick={() => setIsLoadingMore(true)}
           disabled={loading}
+          styles="flex justify-center mx-auto mt-8 bg-zinc-800 text-white px-4 py-3 rounded-full disabled:opacity-50 disabled:cursor-wait cursor-pointer duration-200 hover:opacity-80"
         />
       )}
     </>
