@@ -42,9 +42,6 @@ const Home = () => {
           disabled={loading}
         />
       )}
-
-      {/* SCROLL TO TOP BUTTON */}
-      <ScrollToTop />
     </>
   );
 };

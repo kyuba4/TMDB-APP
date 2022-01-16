@@ -35,7 +35,7 @@ const Movie = () => {
       {!state && <MoviesListSkeleton />}
       {state && (
         <>
-          <div className="bg-gradient-to-b from-slate-500 to-slate-400 h-11 flex items-center text-white">
+          <div className="bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white">
             <div className="container mx-auto flex">
               <Link className="hover:underline" to="/">
                 Home
@@ -45,20 +45,21 @@ const Movie = () => {
             </div>
           </div>
           <div
-            style={{ backgroundImage: `url(${BASE_URL + BIG + state.overview.backdrop_path})` }}
+            style={{
+              backgroundImage: `url(${BASE_URL + BIG + state.overview.backdrop_path})`,
+            }}
             className="flex w-full shadow-md shadow-gray-500 bg-center bg-no-repeat bg-cover p-8 justify-center entry-anim"
           >
-            {/* MOVIE OVERVIEW */}
             <div className="flex flex-col md:flex-row max-w-5xl bg-black bg-opacity-70 rounded-xl">
-              {/* POSTER IMG */}
-              <div className="flex justify-center md:w-5/12">
-                <img
-                  className="h-full w-full object-cover rounded-md"
-                  src={BASE_URL + SMALL + state.overview.poster_path}
-                  alt="poster"
-                />
-              </div>
-              {/* MORE INFO */}
+              {state.overview.poster_path && (
+                <div className="flex justify-center md:w-5/12">
+                  <img
+                    className="h-full w-full object-cover rounded-md"
+                    src={BASE_URL + SMALL + state.overview.poster_path}
+                    alt="poster"
+                  />
+                </div>
+              )}
               <div className="w-11/12 h-fit text-white flex flex-col m-5">
                 <div className="text-3xl mb-4 font-semibold">{state.overview.title || state.overview.original_title}</div>
                 <div className="font-bold mb-3">PLOT</div>
@@ -72,13 +73,15 @@ const Movie = () => {
               </div>
             </div>
           </div>
-          {/* MOVIE DETAILS */}
-          <div className="bg-slate-500 w-full h-16 flex justify-around items-center text-white text-sm entry-anim">
+
+          {/* INFO ABOUT RUNNING TIME, BUDGET AND REVENUE */}
+          <div className="bg-slate-500 w-full h-16 flex justify-around items-center text-white text-sm shadow-md shadow-slate-500 entry-anim">
             <div>Running Time: {timeConverter(state.overview.runtime) || "unknown"}</div>
             <div>Budget: {moneyConverter(state.overview.budget) || "unknown"}</div>
             <div>Revenue: {moneyConverter(state.overview.revenue) || "unknown"}</div>
           </div>
-          {/* ACTORS */}
+
+          {/* ACTORS LIST */}
           <h1 className="font-semibold text-center text-3xl mt-7">Actors</h1>
           <div className="container mx-auto mt-7 grid grid-cols-responsive-grid gap-2">
             {state.credits.cast.map((actor) => (
