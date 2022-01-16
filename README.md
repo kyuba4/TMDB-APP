@@ -1,4 +1,4 @@
-# Movie App based on TMDB API and Tailwind
+# Movies App based on TMDB API and Tailwind
 
 Used dependencies:
 1.  "react-dom": "^17.0.2",
