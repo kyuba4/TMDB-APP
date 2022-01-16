@@ -40,13 +40,6 @@ const useFetchMovies = () => {
       } else {
         setEmptyResults(false);
       }
-
-      // Show featured big image only when user didn't type anything in search field
-      if (searchTerm) {
-        setShowBigImage(false);
-      } else {
-        setShowBigImage(true);
-      }
     } catch (err) {
       setError(true);
     } finally {
@@ -88,6 +81,16 @@ const useFetchMovies = () => {
   useEffect(() => {
     if (!searchTerm) sessionStorage.setItem("home", JSON.stringify(state));
   }, [state, searchTerm]);
+
+  // Track if we have a search term if yes => showBigImage else => do not show it
+  useEffect(() => {
+    if (searchTerm) {
+      setShowBigImage(false);
+    } else {
+      setShowBigImage(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults };
 };

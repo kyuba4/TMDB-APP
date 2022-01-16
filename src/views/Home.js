@@ -1,12 +1,26 @@
 import useHomeFetch from "../hooks/useHomeFetch";
 import FeaturedMovie from "../components/FeaturedMovie";
 import Searchbar from "../components/Searchbar";
-import MoviesList from "../components/MoviesList";
+import Grid from "../components/Grid";
 import Button from "../components/Button";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
+import { Link } from "react-router-dom";
+import MovieCard from "../components/MovieCard";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults } = useHomeFetch();
+  const [gridData, setGridData] = useState(state.results);
+
+  useEffect(() => {
+    if (showBigImage) {
+      setGridData(state.results.slice(1));
+    } else {
+      setGridData(state.results);
+    }
+
+    console.log(showBigImage);
+  }, [showBigImage, state]);
 
   return (
     <>
@@ -26,10 +40,14 @@ const Home = () => {
       {emptyResults && <h1 className="font-semibold text-center text-2xl mt-8">We don't know this movie yet</h1>}
 
       {/* LIST OF MOVIES */}
-      {(state.results.length || !loading) && !emptyResults && (
-        <MoviesList
+      {(state.results.length > 0 || !loading) && !emptyResults && (
+        <Grid
           header={showBigImage ? "Other Featured Movies" : "Searched Movies"}
-          data={showBigImage ? state.results.slice(1) : state.results}
+          children={gridData.map((movie) => (
+            <Link to={`/movie/${movie.id}`} key={movie.id}>
+              <MovieCard data={movie} />
+            </Link>
+          ))}
         />
       )}
 
