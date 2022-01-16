@@ -1,10 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetchMovie from "../hooks/useFetchMovie";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
 import Grid from "../components/Grid";
 import ActorCard from "../components/ActorCard";
 import MovieDetails from "../components/MovieDetails";
+import MovieTopBar from "../components/MovieTopBar";
 
 const Movie = () => {
   const { movieID } = useParams();
@@ -22,16 +23,10 @@ const Movie = () => {
       {!state && <MoviesListSkeleton />}
       {state && (
         <>
-          <div className="bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white">
-            <div className="container mx-auto flex">
-              <Link className="hover:underline" to="/">
-                Home
-              </Link>
-              <div className="mx-3">|</div>
-              <div>{state.overview.title || state.overview.original_title}</div>
-            </div>
-          </div>
+          {/* Top Bar with Home Page link and movie title */}
+          <MovieTopBar data={state.overview} />
 
+          {/* Movie Details */}
           <MovieDetails data={state.overview} />
 
           {/* ACTORS LIST */}
