@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const MovieTopBar = ({ data }) => {
   return (
-    <div className="bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white">
-      <div className="container mx-auto flex">
+    <div className="bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white text-sm lg:text-base">
+      <div className="flex">
         <Link className="hover:underline" to="/">
           Home
         </Link>
