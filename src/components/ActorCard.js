@@ -5,7 +5,10 @@ const ActorCard = ({ data }) => {
   const SMALL = "/w780";
 
   return (
-    <div key={data.id} className="bg-slate-600 text-white text-center rounded-md p-2 shadow-md shadow-slate-500 entry-anim">
+    <div
+      key={data.id}
+      className="bg-gradient-to-b from-slate-700 to-slate-500 text-white text-center rounded-md p-2 shadow-md shadow-slate-500 entry-anim"
+    >
       <img className="rounded-md" src={data.profile_path ? BASE_URL + SMALL + data.profile_path : NoImage} alt="Actor's Face" />
       <div className="mt-2 py-3">
         <p className="font-bold">{data.name}</p>
