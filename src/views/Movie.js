@@ -4,32 +4,18 @@ import useFetchMovie from "../hooks/useFetchMovie";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
 import Grid from "../components/Grid";
 import ActorCard from "../components/ActorCard";
+import MovieDetails from "../components/MovieDetails";
 
 const Movie = () => {
   const { movieID } = useParams();
   const { movieOverview, movieCredits } = useFetchMovie(movieID);
   const [state, setState] = useState(null);
-  const BASE_URL = "https://image.tmdb.org/t/p/";
-  const SMALL = "/w780";
-  const BIG = "/w1280";
 
   useEffect(() => {
     if (!movieOverview || !movieCredits) return;
 
     setState({ overview: movieOverview, credits: movieCredits });
   }, [movieOverview, movieCredits]);
-
-  const timeConverter = (time) => {
-    const h = Math.floor(time / 60);
-    const m = time % 60;
-
-    return `${h}h ${m}m`;
-  };
-
-  const moneyConverter = (money) => {
-    if (!money) return null;
-    return `$${money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  };
 
   return (
     <>
@@ -45,42 +31,8 @@ const Movie = () => {
               <div>{state.overview.title || state.overview.original_title}</div>
             </div>
           </div>
-          <div
-            style={{
-              backgroundImage: `url(${BASE_URL + BIG + state.overview.backdrop_path})`,
-            }}
-            className="flex w-full shadow-md shadow-gray-500 bg-center bg-no-repeat bg-cover p-8 justify-center entry-anim"
-          >
-            <div className="flex flex-col md:flex-row max-w-5xl bg-black bg-opacity-70 rounded-xl">
-              {state.overview.poster_path && (
-                <div className="flex justify-center md:w-5/12">
-                  <img
-                    className="h-full w-full object-cover rounded-md"
-                    src={BASE_URL + SMALL + state.overview.poster_path}
-                    alt="poster"
-                  />
-                </div>
-              )}
-              <div className="w-11/12 h-fit text-white flex flex-col m-5">
-                <div className="text-3xl mb-4 font-semibold">{state.overview.title || state.overview.original_title}</div>
-                <div className="font-bold mb-3">PLOT</div>
-                <div className="w-11/12 text-sm">{state.overview.overview}</div>
-                <div className="mt-5 flex content-center">
-                  <div className="flex content-center items-center">Rating:</div>
-                  <div className="bg-white text-black rounded-full flex items-center justify-center brightness-90 ml-4 w-10 h-10">
-                    {state.overview.vote_average}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* INFO ABOUT RUNNING TIME, BUDGET AND REVENUE */}
-          <div className="bg-slate-500 w-full h-16 flex justify-around items-center text-white text-sm shadow-md shadow-slate-500 entry-anim">
-            <div>Running Time: {timeConverter(state.overview.runtime) || "unknown"}</div>
-            <div>Budget: {moneyConverter(state.overview.budget) || "unknown"}</div>
-            <div>Revenue: {moneyConverter(state.overview.revenue) || "unknown"}</div>
-          </div>
+          <MovieDetails data={state.overview} />
 
           {/* ACTORS LIST */}
           <Grid header="Actors">
