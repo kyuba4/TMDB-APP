@@ -18,8 +18,6 @@ const Home = () => {
     } else {
       setGridData(state.results);
     }
-
-    console.log(showBigImage);
   }, [showBigImage, state]);
 
   return (
