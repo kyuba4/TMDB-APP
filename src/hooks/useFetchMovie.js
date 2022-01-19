@@ -16,7 +16,7 @@ const useFetchMovie = (movieID) => {
 
     const fetchMovie = async () => {
       // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>
-      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`);
       const data = await response.json();
 
       setMovieOverview(data);
@@ -24,7 +24,7 @@ const useFetchMovie = (movieID) => {
 
     const fetchCredits = async () => {
       // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>
-      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}`);
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=en-US`);
       const data = await response.json();
 
       setMovieCredits(data);

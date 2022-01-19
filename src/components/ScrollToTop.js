@@ -6,8 +6,12 @@ const ScrollToTop = () => {
   const [userScroll, setUserScroll] = useState(null);
   const { pathname } = useLocation();
 
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
+  const scrollToTop = (behavior) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: behavior,
+    });
   };
 
   const scroll = () => {
@@ -24,13 +28,13 @@ const ScrollToTop = () => {
   }, []);
 
   useEffect(() => {
-    scrollToTop();
+    scrollToTop("auto");
   }, [pathname]);
 
   return (
     <>
       <button
-        onClick={scrollToTop}
+        onClick={() => scrollToTop("smooth")}
         className={`fixed right-6 bottom-10 z-50 text-white bg-zinc-800 rounded-full p-4 duration-300 shadow-md shadow-zinc-500 hover:opacity-90 ${
           userScroll < 1500 ? "translate-y-28" : "translate-y-0"
         }`}
