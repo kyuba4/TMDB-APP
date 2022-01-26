@@ -15,7 +15,7 @@ const NotFound = () => {
         <h3 className="text-xl font-bold text-center my-3">OOOOOOOOPs!</h3>
         <Button
           to="/"
-          styles="text-sm text-center p-3 mx-auto mt-5 bg-slate-500 text-white rounded-full shadow-md shadow-slate-500"
+          styles="text-sm text-center p-3 mx-auto mt-5 bg-zinc-700 text-white rounded-full shadow-md shadow-zinc-500"
           text="Go to homepage"
           onClick={goHome}
         />
