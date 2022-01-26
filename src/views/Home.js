@@ -29,7 +29,7 @@ const Home = () => {
     window.scrollTo({
       top: scroll.current,
       left: 0,
-      behavior: "smooth",
+      behavior: "auto",
     });
 
     const setValues = () => {
