@@ -6,6 +6,7 @@ import Grid from "../components/Grid";
 import ActorCard from "../components/ActorCard";
 import MovieDetails from "../components/MovieDetails";
 import MovieTopBar from "../components/MovieTopBar";
+import NotFound from "../views/NotFound";
 
 const Movie = () => {
   const { movieID } = useParams();
@@ -19,9 +20,29 @@ const Movie = () => {
   }, [movieOverview, movieCredits]);
 
   return (
+    // <>
+    //   {!state && <MoviesListSkeleton />}
+    //   {state && (
+    //     <>
+    //       {/* Top Bar with Home Page link and movie title */}
+    //       <MovieTopBar data={state.overview} />
+
+    //       {/* Movie Details */}
+    //       <MovieDetails data={state.overview} />
+
+    //       {/* ACTORS LIST */}
+    //       <Grid header="Actors">
+    //         {state.credits.cast.map((actor) => (
+    //           <ActorCard data={actor} key={actor.id} />
+    //         ))}
+    //       </Grid>
+    //     </>
+    //   )}
+    // </>
     <>
-      {!state && <MoviesListSkeleton />}
-      {state && (
+      {state === null ? (
+        <MoviesListSkeleton />
+      ) : state?.overview.id ? (
         <>
           {/* Top Bar with Home Page link and movie title */}
           <MovieTopBar data={state.overview} />
@@ -36,6 +57,8 @@ const Movie = () => {
             ))}
           </Grid>
         </>
+      ) : (
+        <NotFound />
       )}
     </>
   );
