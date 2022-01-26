@@ -20,25 +20,6 @@ const Movie = () => {
   }, [movieOverview, movieCredits]);
 
   return (
-    // <>
-    //   {!state && <MoviesListSkeleton />}
-    //   {state && (
-    //     <>
-    //       {/* Top Bar with Home Page link and movie title */}
-    //       <MovieTopBar data={state.overview} />
-
-    //       {/* Movie Details */}
-    //       <MovieDetails data={state.overview} />
-
-    //       {/* ACTORS LIST */}
-    //       <Grid header="Actors">
-    //         {state.credits.cast.map((actor) => (
-    //           <ActorCard data={actor} key={actor.id} />
-    //         ))}
-    //       </Grid>
-    //     </>
-    //   )}
-    // </>
     <>
       {state === null ? (
         <MoviesListSkeleton />
