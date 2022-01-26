@@ -28,6 +28,7 @@ const ScrollToTop = () => {
   }, []);
 
   useEffect(() => {
+    if (pathname === "/") return;
     scrollToTop("auto");
   }, [pathname]);
 

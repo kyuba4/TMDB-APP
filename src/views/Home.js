@@ -6,11 +6,13 @@ import Button from "../components/Button";
 import MoviesListSkeleton from "../components/MoviesListSkeleton";
 import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
   const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults } = useHomeFetch();
   const [gridData, setGridData] = useState(state.results);
+  const scroll = useRef(JSON.parse(sessionStorage.getItem("scroll")));
+  const bodyHeight = useRef(JSON.parse(sessionStorage.getItem("bodyHeight")));
 
   useEffect(() => {
     if (showBigImage) {
@@ -19,6 +21,25 @@ const Home = () => {
       setGridData(state.results);
     }
   }, [showBigImage, state]);
+
+  useEffect(() => {
+    document.title = "TBDB App";
+    document.body.style.minHeight = bodyHeight.current + "px";
+
+    window.scrollTo({
+      top: scroll.current,
+      left: 0,
+      behavior: "smooth",
+    });
+
+    const setValues = () => {
+      sessionStorage.setItem("scroll", JSON.stringify(window.scrollY));
+      sessionStorage.setItem("bodyHeight", document.body.getBoundingClientRect().height);
+    };
+    window.addEventListener("scroll", setValues);
+
+    return () => window.removeEventListener("scroll", setValues);
+  }, []);
 
   return (
     <>

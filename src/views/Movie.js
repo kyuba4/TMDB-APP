@@ -19,6 +19,12 @@ const Movie = () => {
     setState({ overview: movieOverview, credits: movieCredits });
   }, [movieOverview, movieCredits]);
 
+  useEffect(() => {
+    if (!state) return;
+
+    document.title = state.overview.title || state.overview.original_title;
+  }, [state]);
+
   return (
     <>
       {state === null ? (
