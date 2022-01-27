@@ -11,8 +11,8 @@ import { useEffect, useRef, useState } from "react";
 const Home = () => {
   const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, showBigImage, emptyResults } = useHomeFetch();
   const [gridData, setGridData] = useState(state.results);
-  const scroll = useRef(JSON.parse(sessionStorage.getItem("scroll")));
-  const bodyHeight = useRef(JSON.parse(sessionStorage.getItem("bodyHeight")));
+  const scroll = useRef(JSON.parse(sessionStorage.getItem("scroll")) || 0);
+  const bodyHeight = useRef(JSON.parse(sessionStorage.getItem("bodyHeight")) || 0);
 
   useEffect(() => {
     if (showBigImage) {
