@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useFetchMovie = (movieID) => {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const [movieOverview, setMovieOverview] = useState(null);
   const [movieCredits, setMovieCredits] = useState(null);
 
-  const sessionPersistence = JSON.parse(sessionStorage.getItem(movieID));
+  const sessionPersistence = useRef(JSON.parse(sessionStorage.getItem(movieID)));
 
   useEffect(() => {
-    if (sessionPersistence) {
-      setMovieOverview(sessionPersistence[0]);
-      setMovieCredits(sessionPersistence[1]);
+    if (sessionPersistence.current) {
+      setMovieOverview(sessionPersistence.current[0]);
+      setMovieCredits(sessionPersistence.current[1]);
       return;
     }
 
@@ -32,8 +32,6 @@ const useFetchMovie = (movieID) => {
 
     fetchMovie();
     fetchCredits();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [API_KEY, movieID]);
 
   useEffect(() => {
