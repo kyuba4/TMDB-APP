@@ -5,7 +5,7 @@ const MovieTopBar = ({ data }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white text-sm lg:text-base">
+    <div className={styles.wrap}>
       <div className="flex">
         <Button styles="hover:underline" onClick={() => navigate("/")} text="Go Home" />
         <div className="mx-3">|</div>
@@ -13,6 +13,10 @@ const MovieTopBar = ({ data }) => {
       </div>
     </div>
   );
+};
+
+const styles = {
+  wrap: "bg-gradient-to-b from-slate-500 to-slate-400 p-5 flex items-center text-white text-sm lg:text-base",
 };
 
 export default MovieTopBar;

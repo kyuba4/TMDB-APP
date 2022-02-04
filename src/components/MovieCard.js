@@ -11,20 +11,15 @@ const MovieCard = ({ data }) => {
   const [imgLoad, setImgLoad] = useState(false);
 
   return (
-    <div
-      className={`${
-        imgLoad ? "entry-anim" : "opacity-0"
-      } flex flex-col items-center group h-full max-w-xs duration-300 cubic-bezier(0.22, 1, 0.36, 1) cursor-pointer rounded-md overflow-hidden hover:opacity-90`}
-      title={title || original_title}
-    >
-      <img
-        className="object-cover w-full h-full shadow-md shadow-gray-500 duration-300 cubic-bezier(0.22, 1, 0.36, 1) group-hover:scale-105"
-        src={POSTER_IMG}
-        alt="Poster"
-        onLoad={() => setImgLoad(true)}
-      />
+    <div className={`${imgLoad ? "entry-anim" : "opacity-0"} ${styles.wrap}`} title={title || original_title}>
+      <img className={styles.img} src={POSTER_IMG} alt="Poster" onLoad={() => setImgLoad(true)} />
     </div>
   );
+};
+
+const styles = {
+  wrap: "flex flex-col items-center group h-full max-w-xs shadow-md shadow-gray-500/50 duration-300 cubic-bezier(0.22, 1, 0.36, 1) cursor-pointer rounded-md overflow-hidden hover:opacity-90",
+  img: "object-cover w-full h-full duration-300 cubic-bezier(0.22, 1, 0.36, 1) group-hover:scale-105",
 };
 
 export default MovieCard;

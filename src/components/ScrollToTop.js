@@ -36,14 +36,17 @@ const ScrollToTop = () => {
     <>
       <button
         onClick={() => scrollToTop("smooth")}
-        className={`fixed right-6 bottom-10 z-50 text-white bg-zinc-800 rounded-full p-4 duration-300 shadow-md shadow-zinc-500 hover:opacity-90 ${
-          userScroll < 1500 ? "translate-y-28" : "translate-y-0"
-        }`}
+        className={`${styles.button} ${userScroll < 1500 ? "translate-y-28" : "translate-y-0"}`}
       >
         <img src={Arrow} alt="Up" className="w-4 h-4" />
       </button>
     </>
   );
+};
+
+const styles = {
+  button:
+    "fixed right-6 bottom-10 z-50 text-white bg-zinc-800 rounded-full p-4 duration-300 shadow-md shadow-zinc-500/50 hover:opacity-90",
 };
 
 export default ScrollToTop;

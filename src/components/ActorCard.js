@@ -5,17 +5,22 @@ const ActorCard = ({ data }) => {
   const SMALL = "/w780";
 
   return (
-    <div
-      key={data.id}
-      className="bg-gradient-to-b from-slate-700 to-slate-500 text-white text-center rounded-md p-2 shadow-md shadow-slate-500 entry-anim"
-    >
-      <img className="rounded-md" src={data.profile_path ? BASE_URL + SMALL + data.profile_path : NoImage} alt="Actor's Face" />
-      <div className="mt-2 py-3">
-        <p className="font-bold">{data.name}</p>
-        <p className="text-sm">As: {data.character}</p>
+    <div key={data.id} className={styles.card}>
+      <img className={styles.img} src={data.profile_path ? BASE_URL + SMALL + data.profile_path : NoImage} alt="Actor's Face" />
+      <div className={styles.desc}>
+        <p className={styles.p1}>{data.name}</p>
+        <p className={styles.p2}>As: {data.character}</p>
       </div>
     </div>
   );
+};
+
+const styles = {
+  card: "bg-gradient-to-b from-slate-700 to-slate-500 text-white text-center rounded-md p-2 shadow-md shadow-slate-500 entry-anim",
+  img: "rounded-md",
+  desc: "mt-2 py-3",
+  p1: "font-bold",
+  p2: "text-sm",
 };
 
 export default ActorCard;

@@ -56,7 +56,7 @@ const Home = () => {
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* MESSAGE IF THERE AREN'T ANY RESULTS */}
-      {emptyResults && <h1 className="font-semibold text-center text-2xl mt-8">We don't know this movie yet</h1>}
+      {emptyResults && <h1 className={styles.unknownMsg}>We don't know this movie yet</h1>}
 
       {/* LIST OF MOVIES */}
       {(state.results.length > 0 || !loading) && !emptyResults && (
@@ -76,11 +76,17 @@ const Home = () => {
           text={loading ? "Loading..." : "Load More"}
           onClick={() => setIsLoadingMore(true)}
           disabled={loading}
-          styles="flex justify-center mx-auto mt-8 bg-zinc-800 text-white px-4 py-3 rounded-full disabled:opacity-50 disabled:cursor-wait cursor-pointer duration-200 hover:opacity-80"
+          styles={styles.loadButton}
         />
       )}
     </>
   );
+};
+
+const styles = {
+  unknownMsg: "font-semibold text-center text-2xl mt-8",
+  loadButton:
+    "flex justify-center mx-auto mt-8 bg-zinc-800 text-white px-4 py-3 rounded-full disabled:opacity-50 disabled:cursor-wait cursor-pointer shadow-md shadow-slate-500/50 duration-200 hover:opacity-80",
 };
 
 export default Home;
