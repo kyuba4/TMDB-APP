@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const MovieCard = ({ data }) => {
   const { poster_path: poster, original_title, title } = data;
@@ -22,4 +22,4 @@ const styles = {
   img: "object-cover w-full h-full duration-300 cubic-bezier(0.22, 1, 0.36, 1) group-hover:scale-105",
 };
 
-export default MovieCard;
+export default memo(MovieCard);
